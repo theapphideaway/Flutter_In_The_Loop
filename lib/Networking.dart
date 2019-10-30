@@ -19,4 +19,18 @@ class Networking {
     print(newsResponse);
     return newsResponse;
   }
+
+  Future<NewsResponse> searchNews(String search) async {
+    Response response;
+    Dio dio = new Dio();
+    response = await dio.get("https://newsapi.org/v2/everything", queryParameters: {"q": search, "pagesize": 100, "apiKey": APIKEY});
+    var temp = response.toString();
+    print(temp);
+
+    var responseObject = jsonDecode(response.toString());
+    var newsResponse = NewsResponse.fromJson(responseObject);
+
+    print(newsResponse);
+    return newsResponse;
+  }
 }

@@ -49,8 +49,8 @@ class ScienceState extends State<Science>{
                     child: Column(children: <Widget>[
                       new ClipRRect(
                         borderRadius: new BorderRadius.circular(10),
-                        child: Image.network(articles[index].urlToImage,
-                        ),
+                        child: articles[index].urlToImage != null?Image.network(articles[index].urlToImage,
+                        ): Container(),
                       ),
                       Padding(padding: EdgeInsets.only(top: 8),
                         child: Align(

@@ -31,26 +31,26 @@ class FeaturedState extends State<Featured>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: isLoading? Container(
+        color: Colors.white,
+        child: Center(
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+            )
+        ),
+      ):Container(
         child: ListView.builder(
           itemCount: articles.length,
           itemBuilder: (context, index) {
-            return isLoading? Container(
-              color: Colors.white,
-              child: Center(
-                  child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
-                  )
-              ),
-            ): InkWell(
+            return  InkWell(
               onTap: ()=> goToArticle(articles[index].url),
                 child: Padding(
                     padding: EdgeInsets.only(right: 16, top: 8, left: 16, bottom: 24),
                         child: Column(children: <Widget>[
                         new ClipRRect(
                           borderRadius: new BorderRadius.circular(10),
-                          child: Image.network(articles[index].urlToImage,
-                          ),
+                          child: articles[index].urlToImage != null?Image.network(articles[index].urlToImage,
+                          ): Container(),
                         ),
                         Padding(padding: EdgeInsets.only(top: 8),
                         child: Align(
