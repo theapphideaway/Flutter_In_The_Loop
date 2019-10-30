@@ -14,6 +14,7 @@ class SearchResultsState extends State<SearchResults>{
   Networking networking = new Networking();
   var articles = new List<Article>();
   bool isLoading = true;
+  bool isSearching = true;
 
 
   @override
@@ -37,7 +38,15 @@ class SearchResultsState extends State<SearchResults>{
         backgroundColor: Colors.white,
         title: TextField(
           controller: searchController,
-          onSubmitted: (text)=> {getArticles(text)},
+          onSubmitted: (text)=> {
+            setState(() {
+              isSearching = true;
+            }),
+            getArticles(text),
+            setState(() {
+              isSearching = false;
+            }),
+          },
           decoration: InputDecoration(
             hintText: "Search",
             icon: Icon(Icons.search)
@@ -49,7 +58,14 @@ class SearchResultsState extends State<SearchResults>{
         child: Center(
             child: Text("Search something to get started", style: TextStyle(fontSize: 32),textAlign: TextAlign.center,)
         ),
-      ):Container(
+      ):isSearching? Container(
+        color: Colors.white,
+        child: Center(
+            child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.black),
+            )
+        ),
+      ): Container(
         child: ListView.builder(
           itemCount: articles.length,
           itemBuilder: (context, index) {
@@ -60,8 +76,8 @@ class SearchResultsState extends State<SearchResults>{
                     child: Column(children: <Widget>[
                       new ClipRRect(
                         borderRadius: new BorderRadius.circular(10),
-                        child: Image.network(articles[index].urlToImage,
-                        ),
+                        child: articles[index].urlToImage != null?Image.network(articles[index].urlToImage,
+                        ): Container(),
                       ),
                       Padding(padding: EdgeInsets.only(top: 8),
                         child: Align(
