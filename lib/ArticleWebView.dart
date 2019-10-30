@@ -15,6 +15,13 @@ class ArticleWebViewState extends State<ArticleWebView>{
     this.url = url;
   }
 
+  @override
+  void initState() {
+    print(url);
+    super.initState();
+
+  }
+
   int stackIndex = 1;
   var _key = UniqueKey();
 
@@ -33,7 +40,6 @@ class ArticleWebViewState extends State<ArticleWebView>{
                 key: _key,
                 initialUrl: url,
                 onPageFinished: _handleLoad,
-                javascriptMode: JavascriptMode.unrestricted,
               ),
               Container(
                 color: Colors.white,

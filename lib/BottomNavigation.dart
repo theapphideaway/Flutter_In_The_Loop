@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_in_the_loop/Dashboard.dart';
+import 'package:flutter_in_the_loop/SearchResults.dart';
 
 import 'SearchView.dart';
 
@@ -13,7 +14,7 @@ class BottomNavigationState extends State<BottomNavigation>{
   int _currentIndex = 0;
   final List<Widget> _children = [
     Dashboard(),
-    SearchView()
+    SearchResults()
   ];
 
   @override
@@ -29,7 +30,7 @@ class BottomNavigationState extends State<BottomNavigation>{
             title: new Text('Headlines'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.mail),
+            icon: new Icon(Icons.search),
             title: new Text('Search'),
 
           )
